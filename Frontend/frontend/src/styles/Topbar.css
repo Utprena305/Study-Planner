@@ -1,0 +1,46 @@
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:30px 35px;
+    background:#f6f7fb;
+}
+
+.topbar h1{
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.topbar p{
+    color:#777;
+}
+
+.topbar-right{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.bell-icon{
+    font-size:22px;
+    cursor:pointer;
+}
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.avatar{
+    width:45px;
+    height:45px;
+    background:#6c4df6;
+    color:white;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+}

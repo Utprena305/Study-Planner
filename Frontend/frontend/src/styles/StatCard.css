@@ -1,0 +1,41 @@
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+    margin-bottom:30px;
+}
+
+.stat-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+
+.stat-icon{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+}
+
+.stat-info h4{
+    margin:0;
+    font-size:18px;
+}
+
+.stat-info h2{
+    margin:8px 0;
+    font-size:34px;
+}
+
+.stat-info p{
+    margin:0;
+    color:#888;
+}

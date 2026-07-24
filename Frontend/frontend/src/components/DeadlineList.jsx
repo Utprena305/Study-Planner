@@ -1,39 +1,72 @@
 import { FaCalendarAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import "../styles/TaskList.css";
 
-function DeadlineList() {
-  return (
-    <div className="list-card">
-      <div className="list-header">
-        <h2>Upcoming Deadlines</h2>
-        <a href="#">View All</a>
-      </div>
+function DeadlineList({ tasks }) {
 
-      <div className="list-item">
-        <FaCalendarAlt className="calendar-icon" />
-        <span>Web Development Assignment</span>
-        <small>27 Jul</small>
-      </div>
+    const upcoming = tasks
+        .filter(
+            task =>
+                task.status !== "Completed"
+        )
+        .sort(
+            (a, b) =>
+                new Date(a.due_date) -
+                new Date(b.due_date)
+        )
+        .slice(0, 4);
 
-      <div className="list-item">
-        <FaCalendarAlt className="calendar-icon" />
-        <span>Software Engineering Report</span>
-        <small>29 Jul</small>
-      </div>
+    return (
 
-      <div className="list-item">
-        <FaCalendarAlt className="calendar-icon" />
-        <span>Database Lab</span>
-        <small>31 Jul</small>
-      </div>
+        <div className="list-card">
 
-      <div className="list-item">
-        <FaCalendarAlt className="calendar-icon" />
-        <span>Mobile App Project</span>
-        <small>5 Aug</small>
-      </div>
+            <div className="list-header">
+
+                <h2>Upcoming Deadlines</h2>
+
+                <Link to="/tasks">View All</Link>
+
+            </div>
+
+            {upcoming.length === 0 ? (
+
+    <div className="empty-state">
+        <p>No upcoming deadlines.</p>
     </div>
-  );
+
+) : (
+
+    upcoming.map((task) => (
+
+        <div
+            className="list-item"
+            key={task.id}
+        >
+
+            <FaCalendarAlt className="calendar-icon" />
+
+            <span>{task.title}</span>
+
+            <small>
+                {new Date(task.due_date).toLocaleDateString(
+                    "en-GB",
+                    {
+                        day: "numeric",
+                        month: "short"
+                    }
+                )}
+            </small>
+
+        </div>
+
+    ))
+
+)}
+
+        </div>
+
+    );
+
 }
 
 export default DeadlineList;

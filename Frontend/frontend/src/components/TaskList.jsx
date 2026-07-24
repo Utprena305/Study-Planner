@@ -1,39 +1,95 @@
 import { FaRegSquare, FaCheckSquare } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import "../styles/TaskList.css";
 
-function TaskList() {
-  return (
-    <div className="list-card">
-      <div className="list-header">
-        <h2>Today's Tasks</h2>
-        <a href="#">View All</a>
-      </div>
+function TaskList({ tasks }) {
 
-      <div className="list-item">
-        <FaRegSquare className="task-icon" />
-        <span>Web Development Assignment</span>
-        <small className="danger">Due Today</small>
-      </div>
+    const todayTasks = tasks.slice(0, 4);
 
-      <div className="list-item">
-        <FaCheckSquare className="task-icon completed" />
-        <span>Kotlin Programming Practice</span>
-        <small className="success">Completed</small>
-      </div>
+    const formatDueDate = (date) => {
 
-      <div className="list-item">
-        <FaRegSquare className="task-icon" />
-        <span>Study React</span>
-        <small className="warning">Tomorrow</small>
-      </div>
+        if (!date) return "";
 
-      <div className="list-item">
-        <FaRegSquare className="task-icon" />
-        <span>Database Revision</span>
-        <small>27 July</small>
-      </div>
+        const today = new Date();
+        const due = new Date(date);
+
+        const diff =
+            Math.ceil(
+                (due - today) /
+                (1000 * 60 * 60 * 24)
+            );
+
+        if (diff === 0) return "Due Today";
+        if (diff === 1) return "Tomorrow";
+
+        return due.toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short"
+        });
+
+    };
+
+    return (
+
+        <div className="list-card">
+
+            <div className="list-header">
+
+                <h2>Today's Tasks</h2>
+
+                <Link to="/tasks">View All</Link>
+
+            </div>
+
+            {todayTasks.length === 0 ? (
+
+    <div className="empty-state">
+        <p>No tasks available.</p>
     </div>
-  );
+
+) : (
+
+    todayTasks.map((task) => (
+
+        <div
+            className="list-item"
+            key={task.id}
+        >
+
+            {task.status === "Completed" ? (
+                <FaCheckSquare className="task-icon completed" />
+            ) : (
+                <FaRegSquare className="task-icon" />
+            )}
+
+            <span>{task.title}</span>
+
+            <small
+                className={
+                    task.status === "Completed"
+                        ? "success"
+                        : task.priority === "High"
+                        ? "danger"
+                        : task.priority === "Medium"
+                        ? "warning"
+                        : ""
+                }
+            >
+                {task.status === "Completed"
+                    ? "Completed"
+                    : formatDueDate(task.due_date)}
+            </small>
+
+        </div>
+
+    ))
+
+)}
+
+        </div>
+
+    );
+
 }
 
 export default TaskList;

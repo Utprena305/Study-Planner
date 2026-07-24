@@ -22,15 +22,36 @@
     gap:25px;
 }
 
-.bell-icon{
-    font-size:22px;
-    cursor:pointer;
+.profile-wrapper{
+    position:relative;
 }
 
-.profile{
+.profile-menu{
+    position:absolute;
+    top:60px;
+    right:0;
+    width:180px;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+    overflow:hidden;
+    z-index:100;
+}
+
+.profile-menu button{
+    width:100%;
+    border:none;
+    background:white;
+    padding:14px 18px;
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:10px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.profile-menu button:hover{
+    background:#f6f7fb;
 }
 
 .avatar{

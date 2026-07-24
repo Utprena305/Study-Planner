@@ -24,8 +24,40 @@ const getUserByEmail = async (email) => {
 
     return result.rows[0];
 };
+const updatePassword = async (email, password) => {
+    const query = `
+        UPDATE users
+        SET password = $1
+        WHERE email = $2
+        RETURNING *;
+    `;
 
+    const values = [password, email];
+
+    const result = await pool.query(query, values);
+
+    return result.rows[0];
+};
+
+const updateFullname = async (id, fullname) => {
+
+    const query = `
+        UPDATE users
+        SET fullname = $1
+        WHERE id = $2
+        RETURNING id, fullname, email;
+    `;
+
+    const values = [fullname, id];
+
+    const result = await pool.query(query, values);
+
+    return result.rows[0];
+
+};
 module.exports = {
     createUser,
     getUserByEmail,
+    updatePassword,
+    updateFullname
 };

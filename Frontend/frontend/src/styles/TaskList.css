@@ -61,3 +61,13 @@
 .warning{
     color:#f39c12;
 }
+
+.empty-state{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:180px;
+    color:#888;
+    font-size:16px;
+    font-style:italic;
+}

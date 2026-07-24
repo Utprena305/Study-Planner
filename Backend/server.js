@@ -2,13 +2,19 @@ const express = require("express");
 const dotenv = require("dotenv");
 const pool = require("./Database/db");
 const userRoutes = require("./Routes/userRoutes");
+const taskRoutes = require("./Routes/taskRoutes");
+const scheduleRoutes = require("./Routes/scheduleRoutes");
+const cors = require("cors");
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.use("/api/users", userRoutes);
-
+app.use("/api/users", userRoutes);
+app.use("/api/tasks", taskRoutes);
+app.use("/api/schedules", scheduleRoutes);
 app.get("/", (req, res) => {
     res.send("Backend Running");
 });

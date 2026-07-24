@@ -1,7 +1,12 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { createUser, getUserByEmail } = require("../Model/userModel");
+const { 
+    createUser, 
+    getUserByEmail, 
+    updatePassword,
+    updateFullname
+} = require("../Model/userModel");
 
 const registerUser = async (req, res) => {
     try {
@@ -102,9 +107,85 @@ const loginUser = async (req, res) => {
     }
 };
 
+const forgotPassword = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({
+                message: "Please fill all fields."
+            });
+        }
+
+        const user = await getUserByEmail(email);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "Email not found."
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await updatePassword(email, hashedPassword);
+
+        res.status(200).json({
+            message: "Password updated successfully."
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            message: "Server Error"
+        });
+    }
+};
+
+const updateProfile = async (req, res) => {
+
+    try {
+
+        const { fullname } = req.body;
+
+        if (!fullname) {
+            return res.status(400).json({
+                message: "Full name is required."
+            });
+        }
+
+        const updatedUser = await updateFullname(
+            req.user.id,
+            fullname
+        );
+
+        res.status(200).json({
+            message: "Profile updated successfully.",
+            user: updatedUser
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            message: "Server Error"
+        });
+
+    }
+
+};
+
+
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    forgotPassword,
+    updateProfile
 };
+
+
+
+    
 
 

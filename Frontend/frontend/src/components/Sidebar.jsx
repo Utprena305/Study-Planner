@@ -1,10 +1,11 @@
 import { FaHome, FaTasks, FaClock, FaCalendarAlt, FaCog, FaSignOutAlt } from "react-icons/fa";
 import logoImage from "../assets/images/logo_2.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/Sidebar.css";
 
 function Sidebar() {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleLogout = () => {
         localStorage.removeItem("token");
@@ -23,25 +24,45 @@ function Sidebar() {
 
       <nav className="sidebar-menu">
 
-        <a href="#" className="active">
-          <FaHome />
-          <span>Dashboard</span>
-        </a>
+        <button
+            className={`sidebar-link ${
+                location.pathname === "/dashboard" ? "active" : ""
+            }`}
+            onClick={() => navigate("/dashboard")}
+        >
+            <FaHome />
+            <span>Dashboard</span>
+        </button>
 
-        <a href="#">
-          <FaTasks />
-          <span>Tasks</span>
-        </a>
+        <button
+            className={`sidebar-link ${
+                location.pathname === "/tasks" ? "active" : ""
+            }`}
+            onClick={() => navigate("/tasks")}
+        >
+            <FaTasks />
+            <span>Tasks</span>
+        </button>
 
-        <a href="#">
-          <FaClock />
-          <span>Study Timer</span>
-        </a>
+        <button
+            className={`sidebar-link ${
+                location.pathname === "/study-timer" ? "active" : ""
+            }`}
+            onClick={() => navigate("/study-timer")}
+        >
+            <FaClock />
+            <span>Study Timer</span>
+        </button>
 
-        <a href="#">
-          <FaCalendarAlt />
-          <span>Schedule</span>
-        </a>
+        <button
+            className={`sidebar-link ${
+                location.pathname === "/schedule" ? "active" : ""
+            }`}
+            onClick={() => navigate("/schedule")}
+        >
+            <FaCalendarAlt />
+            <span>Schedule</span>
+        </button>
 
       </nav>
 
